@@ -1,9 +1,20 @@
+#<IfModule mod_rewrite.c>
+  #RewriteEngine On
+  #RewriteBase /
+  #RewriteRule ^(.*)$ index.php/$1 [L]
+  #RewriteRule ^(.*)$ /$1 [L]	
+#</IfModule>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /
-    RewriteRule ^(.*)$ public/$1 [L]
+    RewriteBase /public
+    # Handle Front Controller...
+    # Normal site
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ /public/index.php/$1 [L]		
 </IfModule>
